@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_alterra_batch_6/pages/profile_page.dart';
 
 class MenuDrawerWidget extends StatelessWidget {
   const MenuDrawerWidget({super.key});
@@ -20,13 +21,21 @@ class MenuDrawerWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image.network(
-                    "https://akcdn.detik.net.id/community/media/visual/2023/09/08/lionel-messi-1_169.jpeg?w=600&q=90",
-                    width: 54,
-                    height: 54,
-                    fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => const ProfilePage()
+                    ));
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.network(
+                      "https://akcdn.detik.net.id/community/media/visual/2023/09/08/lionel-messi-1_169.jpeg?w=600&q=90",
+                      width: 54,
+                      height: 54,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8,),
