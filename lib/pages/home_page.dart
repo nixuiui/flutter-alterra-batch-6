@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_alterra_batch_6/const.dart';
 import 'package:flutter_alterra_batch_6/controller/data_controller.dart';
 import 'package:flutter_alterra_batch_6/widgets/chat_item_widget.dart';
 import 'package:get/instance_manager.dart';
@@ -36,7 +37,21 @@ class _HomePageState extends State<HomePage> {
         separatorBuilder: (context, index) => const Divider(height: 0), 
         itemBuilder: (context, index) {
           return ChatItemWidget(
-            data: controller.listChatRoom[index]
+            data: controller.listChatRoom[index],
+            onAvatarCick: () {
+              Navigator.pushNamed(
+                context, 
+                AppRouter.profile,
+                arguments: {
+                  'name': controller.listChatRoom[index].name,
+                  "avatar": controller.listChatRoom[index].avatar,
+                }
+              ).then((value) {
+                if(value == 1) {
+                  // do something
+                }
+              });
+            },
           );
         } 
       )),

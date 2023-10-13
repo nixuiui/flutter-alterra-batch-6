@@ -3,7 +3,10 @@ import 'package:flutter_alterra_batch_6/controller/data_controller.dart';
 import 'package:get/instance_manager.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+
+  const ProfilePage({
+    super.key,
+  });
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -11,30 +14,24 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
-  var name = "Niki";
-
-  var index = 0;
-  final listName = [
-    "Andi",
-    "Budi",
-    "Citra",
-    "Deni",
-    "Edi",
-    "Fendy",
-    "Gagah"
-  ];
-
   final controller = DataController();
   final controller2 = Get.find<DataController>();
   final controller3 = Get.find<DataController>();
 
+  String name = '';
+  String? avatar;
+  
+  Future<String> sayHello() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return 'Hello, $name';
+  }
+
   @override
-  void initState() {
-    print('instance: ${controller.hashCode}');
-    print('controller2: ${controller2.hashCode}');
-    print('controller3: ${controller3.hashCode}');
-    name = "Radit";
-    super.initState();
+  void didChangeDependencies() {
+    final arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    name = arguments["name"];
+    avatar = arguments["avatar"];
+    super.didChangeDependencies();
   }
 
   @override
@@ -49,22 +46,48 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: const Text('Profile'),
       ),
-      body: Center(
+      body: SizedBox(
+        width: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if(avatar != null) ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.network(
+                avatar ?? 'AA',
+                width: 54,
+                height: 54,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text('Hello, $name'),
+            const SizedBox(height: 16),
             Text('Counter 1: ${controller.counter1.value}'),
             Text('Counter 2: ${controller.counter2.value}'),
+            FutureBuilder<String>(
+              future: Future<String>.delayed(
+                const Duration(seconds: 2),
+                () => 'Data Loaded',
+              ),
+              builder: (context, value) {
+                if(value.data != null) {
+                  return Text('${value.data}');
+                }
+                return const Text('Loading..');
+              }
+            ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 0,
-        onPressed: () {
-          name = listName[index];
-          index++;
-          if(index == 7) index = 0;
-        },
-        child: const Icon(Icons.refresh),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context, 1);
+          }, 
+          child: const Text('Save')
+        ),
       ),
     );
   }

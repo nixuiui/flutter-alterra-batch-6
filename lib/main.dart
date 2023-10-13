@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_alterra_batch_6/const.dart';
 import 'package:flutter_alterra_batch_6/pages/home_page.dart';
 import 'package:flutter_alterra_batch_6/pages/new_page.dart';
 import 'package:flutter_alterra_batch_6/pages/profile_page.dart';
@@ -44,12 +45,12 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
-      initialRoute: 'home',
+      initialRoute: AppRouter.home,
       routes: {
-        'home': (context) => const HomePage(title: 'Flutter Demo Home Page'),
-        'profile': (context) => const ProfilePage(),
-        'setting': (context) => const SettingPage(),
-        'new': (context) => const NewPage(),
+        AppRouter.home: (context) => const HomePage(title: 'Flutter Demo Home Page'),
+        AppRouter.setting: (context) => const SettingPage(),
+        AppRouter.profile: (context) => const ProfilePage(),
+        AppRouter.newPage: (context) => const NewPage(),
       },
     );
   }

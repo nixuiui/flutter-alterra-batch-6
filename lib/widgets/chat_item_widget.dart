@@ -4,10 +4,12 @@ import 'package:flutter_alterra_batch_6/models/chat_room_model.dart';
 class ChatItemWidget extends StatelessWidget {
   
   final ChatRoomModel data;
+  final Function()? onAvatarCick;
   
   const ChatItemWidget({
     super.key,
     required this.data,
+    this.onAvatarCick,
   });
 
   @override
@@ -17,27 +19,35 @@ class ChatItemWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if(data.avatar != null) ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.network(
-              data.avatar ?? 'AA',
-              width: 54,
-              height: 54,
-              fit: BoxFit.cover,
+          if(data.avatar != null) GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: onAvatarCick?.call,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.network(
+                data.avatar ?? 'AA',
+                width: 54,
+                height: 54,
+                fit: BoxFit.cover,
+              ),
             ),
           ) else ClipRRect(
             borderRadius: BorderRadius.circular(50),
-            child: Container(
-              width: 54,
-              height: 54,
-              color: Colors.yellow,
-              child: const Center(child: Text(
-                'AA',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold
-                ),
-              )),
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: onAvatarCick?.call,
+              child: Container(
+                width: 54,
+                height: 54,
+                color: Colors.yellow,
+                child: const Center(child: Text(
+                  'AA',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
+                )),
+              ),
             ),
           ),
           const SizedBox(width: 12),
