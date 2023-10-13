@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_alterra_batch_6/const.dart';
 import 'package:flutter_alterra_batch_6/controller/data_controller.dart';
 import 'package:flutter_alterra_batch_6/widgets/chat_item_widget.dart';
-import 'package:get/instance_manager.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 import '../widgets/menu_drawer_widget.dart';
 
@@ -39,14 +38,13 @@ class _HomePageState extends State<HomePage> {
           return ChatItemWidget(
             data: controller.listChatRoom[index],
             onAvatarCick: () {
-              Navigator.pushNamed(
-                context, 
+              Get.toNamed(
                 AppRouter.profile,
                 arguments: {
                   'name': controller.listChatRoom[index].name,
                   "avatar": controller.listChatRoom[index].avatar,
-                }
-              ).then((value) {
+                },
+              )?.then((value) {
                 if(value == 1) {
                   // do something
                 }

@@ -5,7 +5,7 @@ import 'package:flutter_alterra_batch_6/pages/home_page.dart';
 import 'package:flutter_alterra_batch_6/pages/new_page.dart';
 import 'package:flutter_alterra_batch_6/pages/profile_page.dart';
 import 'package:flutter_alterra_batch_6/pages/setting_page.dart';
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 
 import 'controller/data_controller.dart';
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Alterra Batch 6 - Feature 1',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_alterra_batch_6/controller/data_controller.dart';
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -27,11 +27,11 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   @override
-  void didChangeDependencies() {
-    final arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+  void initState() {
+    final arguments = Get.arguments as Map<String, dynamic>;
     name = arguments["name"];
     avatar = arguments["avatar"];
-    super.didChangeDependencies();
+    super.initState();
   }
 
   @override
@@ -84,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pop(context, 1);
+            Get.back(result: 1);
           }, 
           child: const Text('Save')
         ),
